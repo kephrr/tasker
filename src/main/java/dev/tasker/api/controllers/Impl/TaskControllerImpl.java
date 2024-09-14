@@ -2,6 +2,7 @@ package dev.tasker.api.controllers.Impl;
 
 import dev.tasker.api.controllers.TaskController;
 import dev.tasker.api.dto.request.TaskCreateDto;
+import dev.tasker.api.dto.response.TaskCardDto;
 import dev.tasker.api.dto.response.TaskDto;
 import dev.tasker.api.dto.response.rest.RestResponseDto;
 import dev.tasker.data.entities.Person;
@@ -16,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
@@ -24,13 +27,15 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api")
+@CrossOrigin("http://localhost:4200/")
 public class TaskControllerImpl implements TaskController {
     private final TaskService taskService;
     private final PersonService personService;
     @Override
-    public Map<Object, Object> taskList() {
-        List<TaskDto> results = taskService.findAll().stream()
-                .map(TaskDto::toDto).toList();
+    public Map<Object, Object> taskList(String keyword) {
+        List<TaskCardDto> results = taskService.findAllByFilter(keyword).stream()
+                .map(TaskCardDto::toDto).toList();
         return  RestResponseDto.response(
                 results,
                 HttpStatus.OK

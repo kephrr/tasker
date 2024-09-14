@@ -40,4 +40,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findAllByIdUser(Person user) {
         return taskRepository.findAllByUser(user);
     }
+
+    @Override
+    public List<Task> findAllByFilter(String keyword) {
+        return taskRepository.findAllByFilter(keyword);
+    }
 }

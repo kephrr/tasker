@@ -17,4 +17,10 @@ public interface ITaskRepository extends JpaRepository<Task, Long> {
             "WHERE t.isActive = true "+
             "AND :user IS NULL OR t.user=:user")
     List<Task> findAllByUser(@Param("user") Person user);
+
+    @Query("SELECT DISTINCT t FROM Task t "+
+            "WHERE t.isActive = true "+
+            "AND :keyword IS NULL OR t.title LIKE %:keyword% "+
+            "OR :keyword IS NULL OR t.description LIKE %:keyword% ")
+    List<Task> findAllByFilter(@Param("keyword") String keyword);
 }

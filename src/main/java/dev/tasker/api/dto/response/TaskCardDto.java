@@ -8,17 +8,15 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TaskDto {
+public class TaskCardDto {
     private Long id;
     private String title;
     private String description;
     private String etat;
-
-    public static TaskDto toDto(Task task) {
-        return TaskDto.builder()
+    public static TaskCardDto toDto(Task task) {
+        return TaskCardDto.builder()
                 .id(task.getId())
                 .title(task.getTitle())
-                .description(task.getDescription())
                 .etat(task.getEtat().toString())
                 .build();
     }

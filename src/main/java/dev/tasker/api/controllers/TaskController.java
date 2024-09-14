@@ -12,6 +12,7 @@ public interface TaskController {
     // Les tâches sous forme de liste
     @GetMapping("/tasks")
     Map<Object, Object> taskList(
+            @RequestParam(required = false) String keyword
     );
 
     @GetMapping("/tasks/paginate")
